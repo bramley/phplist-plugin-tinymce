@@ -6,7 +6,7 @@ This plugin provides TinyMCE 4 for editing messages and templates within phplist
 It also integrates the elFinder file manager to provide file upload and selection.
 ## Compatibility ###
 
-TinyMCE and lcFinder are compatible with all the major browsers, see the TinyMCE site <http://www.tinymce.com/index.php>
+TinyMCE and elFinder are compatible with all the major browsers, see the TinyMCE site <http://www.tinymce.com/index.php>
 and the elFinder site <https://github.com/Studio-42/elFinder/>
 
 ## Installation ##
@@ -29,6 +29,10 @@ This should contain
 * the file TinyMCEPlugin.php
 * the directory TinyMCEPlugin
 
+### Enable the plugin ###
+Click the small orange icon to enable the plugin. Note that only one editor should be enabled, otherwise phplist will choose the first
+that it finds.
+
 ### Location of the TinyMCE and elFinder directories ###
 The TinyMCE and elFinder directories must be within the web root. 
 
@@ -49,7 +53,7 @@ The width and height of the editor window can be specified on the Settings page.
 The UPLOADIMAGES\_DIR value in config.php must be set to the location of a directory where elFinder can store uploaded images.
 The directory must be writable by the web server. Note that the value is relative to the web root and must not contain a leading '/'.
 
-If the UPLOADIMAGES\_DIR value in config.php is set to `false` then kcFinder will be disabled and image uploading will not be possible.
+If the UPLOADIMAGES\_DIR value in config.php is set to `false` then elFinder will be disabled and image uploading will not be possible.
 
 ## Custom configuration ##
 Other settings for the editor are entered directly on the Settings page.
