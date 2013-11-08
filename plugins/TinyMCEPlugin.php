@@ -37,7 +37,77 @@ class TinyMCEPlugin extends phplistPlugin
     public $description = 'Provides the TinyMCE editor for editing messages and templates.';
     public $enabled = 1;
 
-    function __construct()
+    private function elFinderScript($function)
+    {
+        $elUrl = './?pi=TinyMCEPlugin&page=elfinder_standalone';
+        $html = <<<END
+<script type='text/javascript'>
+$function = function(inputId, imageId) {
+    window.elFinder = {};
+    window.elFinder.callBack = function(url) {
+        document.getElementById(inputId).value = url;
+        document.getElementById(imageId).src = url;
+        window.elFinder = null;
+    };
+    window.open('$elUrl', inputId, 'width=900, height=450');
+};
+</script>
+END;
+        return $html;
+    }
+
+    private function editorScript($width, $height, $toolbar)
+    {
+        $tinyMCEPath = rtrim(getConfig('tinymce_path'), '/');
+        $settings = array();
+        $config = getConfig('tinymce_config');
+
+        if ($config) {
+            $settings[] = trim(trim($config), ',');
+        }
+        if ($width) {
+            $settings[] = "width: $width";
+        }
+
+        if ($height) {
+            $settings[] = "height: $height";
+        }
+
+        if ($toolbar) {
+            $toolbar = trim($toolbar, '"');
+            $settings[] = "toolbar: \"$toolbar\"";
+        }
+        $configSettings = implode(",\n", $settings);
+
+        $html = <<<END
+<script src="$tinyMCEPath/tinymce.min.js"></script>
+<script type="text/javascript">
+tinymce.init({
+    selector: "textarea.editable",
+    file_browser_callback : elFinderBrowser,
+    relative_urls: false,
+    $configSettings
+});
+function elFinderBrowser (field_name, url, type, win) {
+  tinymce.activeEditor.windowManager.open({
+    file: './?pi=TinyMCEPlugin&page=elfinder_tinymce',
+    title: 'elFinder',
+    width: 900,  
+    height: 450,
+    resizable: 'yes'
+  }, {
+    setUrl: function (url) {
+      win.document.getElementById(field_name).value = url;
+    }
+  });
+  return false;
+}
+</script>
+END;
+        return $html;
+    }
+
+    public function __construct()
     {
         $this->elEnabled = defined('UPLOADIMAGES_DIR') && UPLOADIMAGES_DIR !== false;
         $this->coderoot = dirname(__FILE__) . self::CODE_DIR;
@@ -106,54 +176,38 @@ END;
         parent::__construct();
     }
 
-    function adminmenu()
+    public function adminmenu()
     {
         return array();
     }
   
-    function editor($fieldname, $content)
+    public function editor($fieldname, $content)
+    {
+        $width = getConfig('tinymce_width');
+        $height = getConfig('tinymce_height');
+        return $this->createEditor($fieldname, $content, $width, $height);
+    }
+
+    public function createEditor($fieldname, $content, $width = null, $height = null, $toolbar = null)
     {
         $fieldname = htmlspecialchars($fieldname);
         $content = htmlspecialchars($content);
-        $tinyMCEPath = rtrim(getConfig('tinymce_path'), '/');
-        $config = getConfig('tinymce_config');
-
-        if ($config) {
-            $config = ",\n" . trim(trim($config), ',');
-        } else {
-            $config = '';
-        }
-
-        $width = getConfig('tinymce_width');
-        $height = getConfig('tinymce_height');
-        $html = <<<END
-<script src="$tinyMCEPath/tinymce.min.js"></script>
-<script type="text/javascript">
-tinymce.init({
-    selector: "textarea.editable",
-    file_browser_callback : elFinderBrowser,
-    relative_urls: false,
-    width : $width,
-    height : $height
-    $config
-});
-function elFinderBrowser (field_name, url, type, win) {
-  tinymce.activeEditor.windowManager.open({
-    file: './?pi=TinyMCEPlugin&page=elfinder_phplist',
-    title: 'elFinder',
-    width: 900,  
-    height: 450,
-    resizable: 'yes'
-  }, {
-    setUrl: function (url) {
-      win.document.getElementById(field_name).value = url;
-    }
-  });
-  return false;
-}
-</script>
+        $html = $this->editorScript($width, $height, $toolbar) . <<<END
 <textarea class="editable" name="$fieldname">$content</textarea>
 END;
+        return $html;
+    }
+
+    public function createFileManager($function)
+    {
+        static $firstTime = true;
+
+        if ($firstTime) {
+            $firstTime = false;
+            $html = $this->elFinderScript($function);
+        } else {
+            $html = '';
+        }
         return $html;
     }
 }
