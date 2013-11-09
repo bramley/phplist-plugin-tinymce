@@ -42,14 +42,13 @@ class TinyMCEPlugin extends phplistPlugin
         $elUrl = './?pi=TinyMCEPlugin&page=elfinder_standalone';
         $html = <<<END
 <script type='text/javascript'>
-$function = function(inputId, imageId) {
+$function = function(callback) {
     window.elFinder = {};
     window.elFinder.callBack = function(url) {
-        document.getElementById(inputId).value = url;
-        document.getElementById(imageId).src = url;
+        callback(url);
         window.elFinder = null;
     };
-    window.open('$elUrl', inputId, 'width=900, height=450');
+    window.open('$elUrl', '', 'width=900,height=450');
 };
 </script>
 END;
@@ -198,7 +197,7 @@ END;
         return $html;
     }
 
-    public function createFileManager($function)
+    public function createImageBrowser($function)
     {
         static $firstTime = true;
 
