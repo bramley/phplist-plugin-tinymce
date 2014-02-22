@@ -34,8 +34,8 @@ $opts = array(
 	'roots' => array(
 		array(
 			'driver'        => 'LocalFileSystem',
-			'path'          => $_SERVER['DOCUMENT_ROOT'] . '/' . UPLOADIMAGES_DIR . '/',
-			'URL'           => '/' . UPLOADIMAGES_DIR . '/',
+			'path'          => $_SERVER['DOCUMENT_ROOT'] . '/' . trim(UPLOADIMAGES_DIR, '/') . '/',
+			'URL'           => '/' . trim(UPLOADIMAGES_DIR, '/') . '/',
 			'accessControl' => 'access'
 		)
 	)
