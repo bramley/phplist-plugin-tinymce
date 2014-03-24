@@ -83,8 +83,9 @@ END;
 <script type="text/javascript">
 tinymce.init({
     selector: "textarea.editable",
-    file_browser_callback : elFinderBrowser,
+    file_browser_callback: elFinderBrowser,
     relative_urls: false,
+    remove_script_host: false,
     $configSettings
 });
 function elFinderBrowser (field_name, url, type, win) {

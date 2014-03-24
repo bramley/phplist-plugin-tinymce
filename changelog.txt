@@ -1,2 +1,7 @@
+version 2014-03-24
+      Internal changes
+      Ensure host name is included in links
+      Allow UPLOADIMAGES_DIR to have leading and trailing /
+
 version 2013-11-05
       Initial release
