@@ -57,6 +57,14 @@ END;
 
     private function editorScript($width, $height, $toolbar)
     {
+        $html = '';
+
+        if (!is_writeable($dir = $_SERVER['DOCUMENT_ROOT'] . '/' . trim(UPLOADIMAGES_DIR, '/'))) {
+            $html .= sprintf(
+                '<div class="note error">The image upload directory "%s" does not exist or is not writeable.</div>',
+                htmlspecialchars($dir)
+            );
+        }
         $tinyMCEPath = rtrim(getConfig('tinymce_path'), '/');
         $settings = array();
         $config = getConfig('tinymce_config');
@@ -78,7 +86,7 @@ END;
         }
         $configSettings = implode(",\n", $settings);
 
-        $html = <<<END
+        $html .= <<<END
 <script src="$tinyMCEPath/tinymce.min.js"></script>
 <script type="text/javascript">
 tinymce.init({
