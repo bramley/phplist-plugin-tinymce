@@ -20,6 +20,12 @@ The benefit of this is that plugins will not be affected when you upgrade phplis
 ### Install through phplist ###
 Install on the Plugins page (menu Config > Plugins) using the package URL `https://github.com/bramley/phplist-plugin-tinymce/archive/master.zip`.
 
+In phplist releases 3.0.5 and earlier there is a bug that can cause a plugin to be incompletely installed on some configurations (<https://mantis.phplist.com/view.php?id=16865>). 
+Check that these files are in the plugin directory. If not then you will need to install manually. The bug has been fixed in release 3.0.6.
+
+* the file TinyMCEPlugin.php
+* the directory TinyMCEPlugin
+
 ### Install manually ###
 Download the plugin zip file from <https://github.com/bramley/phplist-plugin-tinymce/archive/master.zip>
 
@@ -36,17 +42,22 @@ that it finds.
 ### Location of the TinyMCE and elFinder directories ###
 The TinyMCE and elFinder directories must be within the web root. 
 
-If you have the default plugin location then the plugin will use the correct paths automatically.
+If you have the default plugin location, `define("PLUGIN_ROOTDIR","plugins")` in config.php, then the plugin will use the correct paths automatically.
 
-But if your plugin directory is outside of the web root then you must move or copy the `tinymce` and `elfinder` directories from
+If you have placed the plugin directory outside of the web root then you must move or copy the `tinymce` and `elfinder` directories from
 the plugin's directory to somewhere within the web root.  
+
 Then use the Settings page (menu Config > Settings) to specify the path to each directory.
 In the TinyMCE settings section enter
 
 * the path to TinyMCE
 * the path to elFinder 
 
-Similarly, if you already use TinyMCE on your web site then you can use that version by specifying the path on the Settings page.
+Each path should be from the web root, such as `/tinymce`, not the filesystem path.
+
+Also, if you move or rename the phplist directory or the plugin directory after installing the plugin, then you will need
+to modify the paths to TinyMCE and elFinder as they will not change automatically.
+
 ## Configuration ##
 The width and height of the editor window can be specified on the Settings page.
 
