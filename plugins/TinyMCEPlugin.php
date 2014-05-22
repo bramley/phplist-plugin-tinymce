@@ -39,7 +39,7 @@ class TinyMCEPlugin extends phplistPlugin
 
     private function elFinderScript($function)
     {
-        $elUrl = './?pi=TinyMCEPlugin&page=elfinder_standalone';
+        $elUrl = './?pi=TinyMCEPlugin&amp;page=elfinder_standalone';
         $html = <<<END
 <script type='text/javascript'>
 $function = function(callback) {
@@ -98,7 +98,7 @@ tinymce.init({
 });
 function elFinderBrowser (field_name, url, type, win) {
   tinymce.activeEditor.windowManager.open({
-    file: './?pi=TinyMCEPlugin&page=elfinder_tinymce',
+    file: './?pi=TinyMCEPlugin&amp;page=elfinder_tinymce',
     title: 'elFinder',
     width: 900,  
     height: 450,

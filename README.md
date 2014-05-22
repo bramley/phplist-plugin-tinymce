@@ -96,5 +96,6 @@ This plugin is free but if you install and find it useful then a donation to sup
 ## Version history ##
 
     version     Description
+    2014-07-13  Accumulated minor changes
     2014-03-24  Include host name in links
     2013-11-05  Initial version for phplist 3

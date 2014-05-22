@@ -1,3 +1,8 @@
+version 2014-07-13
+      Ensure host name is included in links
+      Display warning if image directory is not writeable
+      Correct unescaped &
+
 version 2014-03-24
       Internal changes
       Ensure host name is included in links
