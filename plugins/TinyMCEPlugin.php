@@ -184,6 +184,15 @@ END;
         parent::__construct();
     }
 
+    public function dependencyCheck()
+    {
+        global $editorplugin;
+
+        return array(
+            'PHP version 5.3.0 or greater' => version_compare(PHP_VERSION, '5.3') > 0,
+            'No other editor enabled' => empty($editorplugin) || $editorplugin == 'TinyMCEPlugin',
+        );
+    }
     public function adminmenu()
     {
         return array();

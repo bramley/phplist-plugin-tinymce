@@ -11,6 +11,12 @@ and the elFinder site <https://github.com/Studio-42/elFinder/>
 
 ## Installation ##
 
+### Dependencies ###
+
+This plugin is for phplist 3.
+
+Requires php version 5.3 or later.
+
 ### Set the plugin directory ###
 The default plugin directory is `plugins` within the admin directory.
 
