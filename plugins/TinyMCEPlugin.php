@@ -55,7 +55,7 @@ END;
         return $html;
     }
 
-    private function editorScript($width, $height, $toolbar)
+    private function editorScript($fieldname, $width, $height, $toolbar)
     {
         $html = '';
 
@@ -67,6 +67,16 @@ END;
         }
         $tinyMCEPath = rtrim(getConfig('tinymce_path'), '/');
         $settings = array();
+
+        $fullTemplate = getConfig('tinymce_fulltemplate');
+        $fullMessage = getConfig('tinymce_fullmessage');
+        $fullPageSetting = '';
+
+        if (($fieldname == 'template' && $fullTemplate)
+            || ($fieldname == 'message' && $fullMessage && !$fullTemplate)) {
+            $fullPageSetting = 'settings.plugins.push("fullpage");';
+        }
+
         $config = getConfig('tinymce_config');
 
         if ($config) {
@@ -87,15 +97,20 @@ END;
         $configSettings = implode(",\n", $settings);
 
         $html .= <<<END
+<style>
+    body.send .panel .content .mce-tinymce div {margin: 0px}
+</style>
 <script src="$tinyMCEPath/tinymce.min.js"></script>
 <script type="text/javascript">
-tinymce.init({
+settings = {
     selector: "textarea.editable",
     file_browser_callback: elFinderBrowser,
     relative_urls: false,
     remove_script_host: false,
     $configSettings
-});
+};
+$fullPageSetting
+tinymce.init(settings);
 function elFinderBrowser (field_name, url, type, win) {
   tinymce.activeEditor.windowManager.open({
     file: './?pi=TinyMCEPlugin&amp;page=elfinder_tinymce',
@@ -159,6 +174,20 @@ END;
               'min' => 100,
               'max' => 800,
               'category'=> 'TinyMCE',
+            ),
+            'tinymce_fulltemplate' => array (
+              'description' => 'Allow templates to be edited as full HTML pages',
+              'type' => 'boolean',
+              'value' => true,
+              'allowempty' => true,
+              'category'=> 'TinyMCE',
+            ),
+            'tinymce_fullmessage' => array (
+              'description' => 'Allow messages to be edited as full HTML pages',
+              'type' => 'boolean',
+              'value' => false,
+              'allowempty' => true,
+              'category'=> 'TinyMCE',
             )
         );
         $this->settings['tinymce_config']['value'] = <<<END
@@ -209,7 +238,7 @@ END;
     {
         $fieldname = htmlspecialchars($fieldname);
         $content = htmlspecialchars($content);
-        $html = $this->editorScript($width, $height, $toolbar) . <<<END
+        $html = $this->editorScript($fieldname, $width, $height, $toolbar) . <<<END
 <textarea class="editable" name="$fieldname">$content</textarea>
 END;
         return $html;
