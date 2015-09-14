@@ -1,3 +1,7 @@
+version 2.0.1+20150914
+      Allow full page editing
+      Don't escape & in javascript
+
 version 2015-07-15
       GitHub #1, use https instead of http for jquery files
 

@@ -102,7 +102,8 @@ This plugin is free but if you install and find it useful then a donation to sup
 ## Version history ##
 
     version     Description
-    2015-07-15  GitHub #1, use https for jquery files
-    2014-07-13  Accumulated minor changes
-    2014-03-24  Include host name in links
-    2013-11-05  Initial version for phplist 3
+    2.0.1+20150914  Allow full page editing
+    2015-07-15      GitHub #1, use https for jquery files
+    2014-07-13      Accumulated minor changes
+    2014-03-24      Include host name in links
+    2013-11-05      Initial version for phplist 3
