@@ -102,6 +102,7 @@ This plugin is free but if you install and find it useful then a donation to sup
 ## Version history ##
 
     version     Description
+    2.0.2+20160615  GitHub #3, do not specify protocol for jquery files
     2.0.1+20150914  Allow full page editing
     2015-07-15      GitHub #1, use https for jquery files
     2014-07-13      Accumulated minor changes

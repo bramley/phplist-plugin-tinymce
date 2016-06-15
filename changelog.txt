@@ -1,3 +1,7 @@
+version 2.0.2+20160615
+Arnaud Virlet (1):
+     GitHub #3, update url for ajax.googleapis.com (avoid blocked mixed active content error in browser)
+
 version 2.0.1+20150914
       Allow full page editing
       Don't escape & in javascript
