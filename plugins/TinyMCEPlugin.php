@@ -1,6 +1,6 @@
 <?php
 /**
- * TinyMCEPlugin for phplist
+ * TinyMCEPlugin for phplist.
  * 
  * This file is a part of TinyMCEPlugin.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  * 
  * @category  phplist
- * @package   TinyMCEPlugin
+ *
  * @author    Duncan Cameron
  * @copyright 2013 Duncan Cameron
  * @license   http://www.gnu.org/licenses/gpl.html GNU General Public License, Version 3
@@ -52,6 +52,7 @@ $function = function(callback) {
 };
 </script>
 END;
+
         return $html;
     }
 
@@ -144,6 +145,7 @@ function elFinderBrowser (field_name, url, type, win) {
 }
 </script>
 END;
+
         return $html;
     }
 
@@ -158,52 +160,52 @@ END;
         $elPath .= self::CODE_DIR . 'elfinder';
 
         $this->settings = array(
-            'tinymce_url' => array (
+            'tinymce_url' => array(
               'value' => '//cdn.tinymce.com/4/tinymce.min.js',
               'description' => 'URL of tinymce.min.js',
               'type' => 'text',
               'allowempty' => 0,
-              'category'=> 'TinyMCE',
+              'category' => 'TinyMCE',
             ),
-            'tinymce_config' => array (
+            'tinymce_config' => array(
               'value' => '',
               'description' => 'Custom configuration settings',
               'type' => 'textarea',
               'allowempty' => 1,
-              'category'=> 'TinyMCE',
+              'category' => 'TinyMCE',
             ),
-            'tinymce_width' => array (
+            'tinymce_width' => array(
               'value' => 600,
               'description' => 'Width in px of TinyMCE window',
               'type' => 'integer',
               'allowempty' => 0,
               'min' => 100,
               'max' => 800,
-              'category'=> 'TinyMCE',
+              'category' => 'TinyMCE',
             ),
-            'tinymce_height' => array (
+            'tinymce_height' => array(
               'value' => 600,
               'description' => 'Height in px of TinyMCE window',
               'type' => 'integer',
               'allowempty' => 0,
               'min' => 100,
               'max' => 800,
-              'category'=> 'TinyMCE',
+              'category' => 'TinyMCE',
             ),
-            'tinymce_fulltemplate' => array (
+            'tinymce_fulltemplate' => array(
               'description' => 'Allow templates to be edited as full HTML pages',
               'type' => 'boolean',
               'value' => true,
               'allowempty' => true,
-              'category'=> 'TinyMCE',
+              'category' => 'TinyMCE',
             ),
-            'tinymce_fullmessage' => array (
+            'tinymce_fullmessage' => array(
               'description' => 'Allow messages to be edited as full HTML pages',
               'type' => 'boolean',
               'value' => false,
               'allowempty' => true,
-              'category'=> 'TinyMCE',
-            )
+              'category' => 'TinyMCE',
+            ),
         );
         $this->settings['tinymce_config']['value'] = <<<END
 toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image",
@@ -216,13 +218,13 @@ END;
 
         if ($this->elEnabled) {
             $this->settings += array(
-                'elfinder_path' => array (
+                'elfinder_path' => array(
                   'value' => $elPath,
                   'description' => 'path to elFinder',
                   'type' => 'text',
                   'allowempty' => 0,
-                  'category'=> 'TinyMCE',
-                )
+                  'category' => 'TinyMCE',
+                ),
             );
         }
         parent::__construct();
@@ -241,7 +243,7 @@ END;
     {
         return array();
     }
-  
+
     public function editor($fieldname, $content)
     {
         $width = getConfig('tinymce_width');
