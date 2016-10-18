@@ -58,6 +58,14 @@ END;
     private function editorScript($fieldname, $width, $height, $toolbar)
     {
         $html = '';
+        $tinymceUrl = getConfig('tinymce_url');
+
+        if (substr($tinymceUrl, -15) != '/tinymce.min.js') {
+            $html .= sprintf(
+                '<div class="note error">tinyMCE is not available because the setting for the URL of tinymce.min.js "%s" is incorrect.</div>',
+                $tinymceUrl
+            );
+        }
 
         if (!is_writeable($dir = $_SERVER['DOCUMENT_ROOT'] . '/' . trim(UPLOADIMAGES_DIR, '/'))) {
             $html .= sprintf(
@@ -65,7 +73,6 @@ END;
                 htmlspecialchars($dir)
             );
         }
-        $tinyMCEPath = rtrim(getConfig('tinymce_path'), '/');
         $settings = array();
 
         $fullTemplate = getConfig('tinymce_fulltemplate');
@@ -100,9 +107,19 @@ END;
 <style>
     body.send .panel .content .mce-tinymce div {margin: 0px}
 </style>
-<script src="$tinyMCEPath/tinymce.min.js"></script>
+<script src="$tinymceUrl"></script>
 <script type="text/javascript">
 settings = {
+    setup: function(ed) {
+        ed.addMenuItem('info', {
+            'text' : 'Info',
+            'context' : 'tools',
+            'icon' : 'help',
+            'onclick' : function() {
+                tinymce.activeEditor.windowManager.alert('TinyMCE ' + tinymce.majorVersion + '.' + tinymce.minorVersion);
+            }
+        });
+    },
     selector: "textarea.editable",
     file_browser_callback: elFinderBrowser,
     relative_urls: false,
@@ -137,15 +154,13 @@ END;
         $this->version = (is_file($f = $this->coderoot . self::VERSION_FILE))
             ? file_get_contents($f)
             : '';
-        $tinyMCEPath = substr(PLUGIN_ROOTDIR, 0, 1) == '/' ? PLUGIN_ROOTDIR : $GLOBALS['pageroot'] . '/admin/' . PLUGIN_ROOTDIR;
-        $tinyMCEPath .= self::CODE_DIR . 'tinymce';
         $elPath = substr(PLUGIN_ROOTDIR, 0, 1) == '/' ? PLUGIN_ROOTDIR : $GLOBALS['pageroot'] . '/admin/' . PLUGIN_ROOTDIR;
         $elPath .= self::CODE_DIR . 'elfinder';
 
         $this->settings = array(
-            'tinymce_path' => array (
-              'value' => $tinyMCEPath,
-              'description' => 'path to TinyMCE',
+            'tinymce_url' => array (
+              'value' => '//cdn.tinymce.com/4/tinymce.min.js',
+              'description' => 'URL of tinymce.min.js',
               'type' => 'text',
               'allowempty' => 0,
               'category'=> 'TinyMCE',
@@ -231,6 +246,7 @@ END;
     {
         $width = getConfig('tinymce_width');
         $height = getConfig('tinymce_height');
+
         return $this->createEditor($fieldname, $content, $width, $height);
     }
 
@@ -241,6 +257,7 @@ END;
         $html = $this->editorScript($fieldname, $width, $height, $toolbar) . <<<END
 <textarea class="editable" name="$fieldname">$content</textarea>
 END;
+
         return $html;
     }
 
@@ -254,6 +271,7 @@ END;
         } else {
             $html = '';
         }
+
         return $html;
     }
 }
