@@ -1,3 +1,9 @@
+version 2.1.0+20161018
+      Load tinymce from its CDN
+      Add item to tinymce menu to show its version
+      coding standards changes
+      Move most of the documentation to the phplist plugins page
+
 version 2.0.2+20160615
 Arnaud Virlet (1):
      GitHub #3, update url for ajax.googleapis.com (avoid blocked mixed active content error in browser)
