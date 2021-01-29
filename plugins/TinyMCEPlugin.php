@@ -1,7 +1,7 @@
 <?php
 /**
  * TinyMCEPlugin for phplist.
- * 
+ *
  * This file is a part of TinyMCEPlugin.
  *
  * This plugin is free software: you can redistribute it and/or modify
@@ -12,7 +12,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * @category  phplist
  *
  * @author    Duncan Cameron
@@ -60,6 +60,12 @@ END;
     {
         $html = '';
         $tinymceUrl = getConfig('tinymce_url');
+
+        // If the tinymce URL is for version 4 then change it to the default
+        if ($tinymceUrl == '//cdn.tinymce.com/4/tinymce.min.js') {
+            $tinymceUrl = $this->settings['tinymce_url']['value'];
+            saveConfig('tinymce_url', $tinymceUrl);
+        }
 
         if (substr($tinymceUrl, -15) != '/tinymce.min.js') {
             $html .= sprintf(
@@ -133,7 +139,7 @@ function elFinderBrowser (field_name, url, type, win) {
   tinymce.activeEditor.windowManager.open({
     file: './?pi=TinyMCEPlugin&page=elfinder_tinymce',
     title: 'elFinder',
-    width: 900,  
+    width: 900,
     height: 450,
     resizable: 'yes'
   }, {
@@ -156,12 +162,14 @@ END;
         $this->version = (is_file($f = $this->coderoot . self::VERSION_FILE))
             ? file_get_contents($f)
             : '';
+        $tinymceUrl = substr(PLUGIN_ROOTDIR, 0, 1) == '/' ? PLUGIN_ROOTDIR : $GLOBALS['pageroot'] . '/admin/' . PLUGIN_ROOTDIR;
+        $tinymceUrl .= self::CODE_DIR . 'tinymce/js/tinymce/tinymce.min.js';
         $elPath = substr(PLUGIN_ROOTDIR, 0, 1) == '/' ? PLUGIN_ROOTDIR : $GLOBALS['pageroot'] . '/admin/' . PLUGIN_ROOTDIR;
         $elPath .= self::CODE_DIR . 'elfinder';
 
         $this->settings = array(
             'tinymce_url' => array(
-              'value' => '//cdn.tinymce.com/4/tinymce.min.js',
+              'value' => $tinymceUrl,
               'description' => 'URL of tinymce.min.js',
               'type' => 'text',
               'allowempty' => 0,
@@ -239,6 +247,7 @@ END;
             'No other editor enabled' => empty($editorplugin) || $editorplugin == 'TinyMCEPlugin',
         );
     }
+
     public function adminmenu()
     {
         return array();

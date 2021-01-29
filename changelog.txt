@@ -1,3 +1,7 @@
+version 2.2.0+20210129
+      Add local copy of tinymce 4.9.11
+      Use the local copy of tinymce instead of the cloud version
+
 version 2.1.0+20161018
       Load tinymce from its CDN
       Add item to tinymce menu to show its version

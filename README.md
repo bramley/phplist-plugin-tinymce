@@ -1,7 +1,7 @@
 # TinyMCE Plugin #
 
 ## Description ##
-This plugin provides TinyMCE 4 for editing messages and templates within phplist. 
+This plugin provides TinyMCE 4 for editing messages and templates within phplist.
 
 It also integrates the elFinder file manager to provide file upload and selection.
 ## Compatibility ###
@@ -28,6 +28,7 @@ This plugin is free but if you install and find it useful then a donation to sup
 ## Version history ##
 
     version     Description
+    2.2.0+20210129  Use the local copy of tinymce instead of the cloud version
     2.1.0+20161018  Load tinymce from its CDN
     2.0.2+20160615  GitHub #3, do not specify protocol for jquery files
     2.0.1+20150914  Allow full page editing
