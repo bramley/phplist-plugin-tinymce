@@ -28,6 +28,7 @@ This plugin is free but if you install and find it useful then a donation to sup
 ## Version history ##
 
     version     Description
+    2.3.0+20220903  Allow tinymce window width not to be set so that it fills the surrounding element.
     2.2.0+20210129  Use the local copy of tinymce instead of the cloud version
     2.1.0+20161018  Load tinymce from its CDN
     2.0.2+20160615  GitHub #3, do not specify protocol for jquery files

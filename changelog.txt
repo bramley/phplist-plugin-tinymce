@@ -1,3 +1,6 @@
+version 2.3.0+20220903
+      Allow tinymce window width not to be set so that it fills the surrounding element.
+
 version 2.2.0+20210129
       Add local copy of tinymce 4.9.11
       Use the local copy of tinymce instead of the cloud version
