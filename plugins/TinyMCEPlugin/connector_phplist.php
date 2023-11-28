@@ -21,24 +21,32 @@ include_once $elFilePath . 'elFinderVolumeLocalFileSystem.class.php';
  * @return bool|null
  **/
 function access($attr, $path, $data, $volume) {
-	return strpos(basename($path), '.') === 0       // if file/folder begins with '.' (dot)
-		? !($attr == 'read' || $attr == 'write')    // set read+write to false, other (locked+hidden) set to true
-		:  null;                                    // else elFinder decide it itself
+    return strpos(basename($path), '.') === 0       // if file/folder begins with '.' (dot)
+        ? !($attr == 'read' || $attr == 'write')    // set read+write to false, other (locked+hidden) set to true
+        :  null;                                    // else elFinder decide it itself
 }
+$uploadDir = '/' . trim(UPLOADIMAGES_DIR, '/') . '/';
 
+if (defined('IMAGE_DIR_PER_ADMIN') && IMAGE_DIR_PER_ADMIN) {
+    $uploadDir .= $_SESSION['logindetails']['id'] . '/';
+}
+$uploadPath = $_SERVER['DOCUMENT_ROOT'] . $uploadDir;
 
+if (!is_dir($uploadPath)) {
+    mkdir($uploadPath);
+}
 // Documentation for connector options:
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(
-	'debug' => true,
-	'roots' => array(
-		array(
-			'driver'        => 'LocalFileSystem',
-			'path'          => $_SERVER['DOCUMENT_ROOT'] . '/' . trim(UPLOADIMAGES_DIR, '/') . '/',
-			'URL'           => '/' . trim(UPLOADIMAGES_DIR, '/') . '/',
-			'accessControl' => 'access'
-		)
-	)
+    'debug' => true,
+    'roots' => array(
+        array(
+            'driver'        => 'LocalFileSystem',
+            'path'          => $uploadPath,
+            'URL'           => $uploadDir,
+            'accessControl' => 'access'
+        )
+    )
 );
 
 // run elFinder
