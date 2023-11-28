@@ -1,3 +1,8 @@
+version 2.4.0+20231128
+      Revise CS Fixer and gitignore
+      Allow upload subdirectory for each admin
+      Fix php8 errors and deprecations
+
 version 2.3.0+20220903
       Allow tinymce window width not to be set so that it fills the surrounding element.
 
