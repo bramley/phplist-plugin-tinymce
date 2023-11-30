@@ -1,3 +1,6 @@
+version 2.4.1+20231202
+      Allow image dir per admin not to apply to super users
+
 version 2.4.0+20231128
       Revise CS Fixer and gitignore
       Allow upload subdirectory for each admin

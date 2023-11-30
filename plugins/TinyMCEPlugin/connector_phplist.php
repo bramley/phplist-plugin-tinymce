@@ -26,15 +26,20 @@ function access($attr, $path, $data, $volume) {
         :  null;                                    // else elFinder decide it itself
 }
 $uploadDir = '/' . trim(UPLOADIMAGES_DIR, '/') . '/';
-
-if (defined('IMAGE_DIR_PER_ADMIN') && IMAGE_DIR_PER_ADMIN) {
-    $uploadDir .= $_SESSION['logindetails']['id'] . '/';
-}
 $uploadPath = $_SERVER['DOCUMENT_ROOT'] . $uploadDir;
 
-if (!is_dir($uploadPath)) {
-    mkdir($uploadPath);
+if (defined('IMAGE_DIR_PER_ADMIN')) {
+    if (IMAGE_DIR_PER_ADMIN === 'all' || !$_SESSION['logindetails']['superuser']) {
+        $subDir = $_SESSION['logindetails']['id'];
+        $uploadDir .= "$subDir/";
+        $uploadPath .= "$subDir/";
+
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath);
+        }
+    }
 }
+
 // Documentation for connector options:
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(
