@@ -1,3 +1,6 @@
+version 2.4.2+20231202
+      Always edit templates as full page
+
 version 2.4.1+20231202
       Allow image dir per admin not to apply to super users
 

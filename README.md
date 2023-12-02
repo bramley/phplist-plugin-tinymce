@@ -28,6 +28,7 @@ This plugin is free but if you install and find it useful then a donation to sup
 ## Version history ##
 
     version     Description
+    2.4.2+20231202  Always edit templates as full page
     2.4.1+20231202  Allow upload dir per admin not to apply to super users
     2.4.0+20231128  Allow upload subdirectory for each admin
     2.3.0+20220903  Allow tinymce window width not to be set so that it fills the surrounding element.

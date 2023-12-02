@@ -82,12 +82,9 @@ END;
         }
         $settings = array();
 
-        $fullTemplate = getConfig('tinymce_fulltemplate');
-        $fullMessage = getConfig('tinymce_fullmessage');
         $fullPageSetting = '';
 
-        if (($fieldname == 'template' && $fullTemplate)
-            || ($fieldname == 'message' && $fullMessage && !$fullTemplate)) {
+        if ($fieldname == 'template' || ($fieldname == 'message' && getConfig('tinymce_fullmessage'))) {
             $fullPageSetting = 'settings.plugins.push("fullpage");';
         }
 
@@ -198,13 +195,6 @@ END;
               'allowempty' => 0,
               'min' => 100,
               'max' => 800,
-              'category' => 'TinyMCE',
-            ),
-            'tinymce_fulltemplate' => array(
-              'description' => 'Allow templates to be edited as full HTML pages',
-              'type' => 'boolean',
-              'value' => true,
-              'allowempty' => true,
               'category' => 'TinyMCE',
             ),
             'tinymce_fullmessage' => array(
